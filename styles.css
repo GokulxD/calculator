@@ -8,6 +8,7 @@ body {
 }
 
 .calculator {
+  position: relative; /* Added relative positioning for lights */
   width: 300px;
   background-color: #ffffff;
   border: 1px solid #ccc;
@@ -16,11 +17,28 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* RGB lights */
+.light {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  animation: colorChange 2s infinite alternate; /* RGB color change animation */
+}
+
+.light.red { top: 10px; left: 10px; background-color: rgb(255, 0, 0); }
+.light.green { top: 10px; right: 10px; background-color: rgb(0, 255, 0); }
+.light.blue { bottom: 10px; left: 10px; background-color: rgb(0, 0, 255); }
+.light.yellow { bottom: 10px; right: 10px; background-color: rgb(255, 255, 0); }
+
 .display {
   font-size: 1.5em;
   padding: 10px;
   text-align: right;
   border-bottom: 1px solid #ccc;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
 }
 
 .buttons {
@@ -40,6 +58,24 @@ button {
 button:hover {
   background-color: #ddd;
   transform: scale(1.1);
-  border: 1px solid rgb(255, 0, 0); /* Glowing border in red */
-  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); /* Glowing shadow in red */
-} 
+}
+
+/* Sliding animation for numbers */
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.display {
+  animation: slideIn 0.5s ease-out;
+}
+
+/* Color change animation for RGB lights */
+@keyframes colorChange {
+  0% { filter: brightness(1); }
+  100% { filter: brightness(1.5); }
+}
